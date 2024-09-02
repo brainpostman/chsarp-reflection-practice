@@ -52,16 +52,32 @@ namespace ReflectionPractice
                 for (int i = 0; i < props.Length; i++)
                 {
                     PropertyInfo? prop = targetType.GetProperty(props[i], BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-                    if (prop != null && prop.PropertyType == typeof(int))
+                    if (prop != null)
                     {
-                        if (values[i] != string.Empty)
+                        if (prop.PropertyType == typeof(int))
                         {
-                            prop.SetValue(obj, int.Parse(values[i]));
-                        }
-                        else
+                            if (values[i] != string.Empty)
+                            {
+                                int val = 0;
+                                if (int.TryParse(values[i], out val))
+                                {
+                                    prop.SetValue(obj, val);
+                                }
+                                else
+                                {
+                                    prop.SetValue(obj, default(int));
+                                }
+
+                            }
+                            else
+                            {
+                                prop.SetValue(obj, 0);
+                            }
+                        } else
                         {
-                            prop.SetValue(obj, 0);
+                            prop.SetValue(obj, null, null);
                         }
+                        
                     }
                 }
             }

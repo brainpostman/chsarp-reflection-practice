@@ -22,7 +22,7 @@ namespace ReflectionPractice
             };
             Func<int, string> deserCustom = n =>
             {
-                F? f2;
+                F? f2 = null;
                 try
                 {
                     using (FileStream fs = new FileStream("../../../test.csv", FileMode.Open))
@@ -61,7 +61,7 @@ namespace ReflectionPractice
             };
             Func<int, string> deserNsoft = n =>
             {
-                F? f2;
+                F? f2 = null;
                 try
                 {
                     using (FileStream fs = new FileStream("../../../test-json.json", FileMode.Open))
